@@ -6,3 +6,5 @@ Task 1 : Start Markdown editor
 Day 2
 Again practice
 
+Day 3
+Design & Documentation Phase
