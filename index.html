@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      transition: background 1s ease-in-out;
+    }
+
+    /* Day background */
+    .day {
+      background: linear-gradient(to bottom, #4facfe, #19bff7);
+    }
+
+    /* Night background */
+    .night {
+      background: linear-gradient(to bottom, #141e30, #243b55);
+    }
+
+    .weather-container {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 2rem;
+      width: 320px;
+      text-align: center;
+      color: white;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .search-box {
+      display: flex;
+      margin-bottom: 20px;
+    }
+
+    .search-box input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 12px 0 0 12px;
+      outline: none;
+      font-size: 1.1rem;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+    }
+
+    .search-box input::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .search-box button {
+      padding: 10px 15px;
+      border: none;
+      background: rgba(255, 255, 255, 0.25);
+      color: white;
+      border-radius: 0 12px 12px 0;
+      cursor: pointer;
+      transition: background 0.3s;
+      backdrop-filter: blur(10px);
+    }
+
+    .search-box button:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .weather-info h2 {
+      margin: 0;
+      font-size: 1.8rem;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    }
+
+    .weather-info .temp {
+      font-size: 3rem;
+      font-weight: bold;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    }
+    .tempBlue{
+      color: #d3d7ff;
+    }
+
+    .tempWhite{
+      color: white;
+    }
+
+    .condition {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #f1f1f1;
+    }
+
+    .condition img {
+      width: 50px;
+      height: 50px;
+    }
+
+    svg{
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="weather-container">
+    <!-- Search Bar -->
+    <div class="search-box">
+      <input type="text" id="cityInput" placeholder="Search city...">
+      <button id="searchBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-icon lucide-search"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+
+      </button>
+    </div>
+
+    <!-- Weather Info -->
+    <div class="weather-info">
+      <h2 id="cityName">New York</h2>
+      <p class="temp" id="temperature">23°C</p>
+      <div class="condition">
+        <img id="icon" src="https://openweathermap.org/img/wn/01d.png" alt="weather icon">
+        <span id="conditionText">Sunny</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Function to set background based on local time
+    function setBackground() {
+      const hour = new Date().getHours();
+      if (hour >= 6 && hour < 18) {
+        document.body.classList.add("day");
+        document.getElementById("temperature").classList.remove("tempBlue");
+        document.getElementById("temperature").classList.add("tempWhite");
+        document.body.classList.remove("night");
+      } else {
+        document.body.classList.add("night");
+        document.getElementById("temperature").classList.remove("tempWhite");
+        document.getElementById("temperature").classList.add("tempBlue");
+        document.body.classList.remove("day");
+      }
+    }
+
+    // Run on load
+    setBackground();
+
+    // Demo JS just to test UI changes
+    document.getElementById("searchBtn").addEventListener("click", () => {
+      const city = document.getElementById("cityInput").value || "New York";
+      
+      // Dummy updates
+      document.getElementById("cityName").textContent = city;
+      document.getElementById("temperature").textContent = "28°C";
+      document.getElementById("conditionText").textContent = "Cloudy";
+      document.getElementById("icon").src = "https://openweathermap.org/img/wn/03d.png";
+    });
+  </script>
+</body>
+</html>
